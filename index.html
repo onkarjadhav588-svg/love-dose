@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Someone Special ❤️</title>
+
+<style>
+body{
+  margin:0;
+  padding:0;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  background: linear-gradient(135deg, #1a1a1a, #ff4b5c);
+  color:white;
+  font-family:Arial;
+  text-align:center;
+  overflow:hidden;
+}
+
+#main{
+  display:none;
+}
+
+h1{
+  font-size:32px;
+  text-shadow:0 0 10px pink;
+}
+
+.card{
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  padding:30px 20px;
+  border-radius:25px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  width:90%;
+  max-width:350px;
+}
+
+button{
+  padding:10px 25px;
+  margin-top:15px;
+  border:none;
+  border-radius:20px;
+  background:white;
+  color:#ff4b5c;
+  font-weight:bold;
+}
+
+button:hover{
+  background:#ffd1dc;
+}
+.heart{
+  position: fixed;
+  bottom: -10px;
+  color: red;
+  font-size: 20px;
+  animation: fly 5s linear infinite;
+}
+
+@keyframes fly{
+  from{
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to{
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+}
+  
+  .confetti{
+  position: fixed;
+  width:8px;
+  height:8px;
+  top:-10px;
+  animation: fall 3s linear forwards;
+}
+  @keyframes fall{
+  to{
+    transform: translateY(100vh) rotate(720deg);
+    opacity:0;
+  }
+}
+  @keyframes shake{
+  0%{ transform: translate(0); }
+  25%{ transform: translate(5px,5px); }
+  50%{ transform: translate(-5px,5px); }
+  75%{ transform: translate(5px,-5px); }
+  100%{ transform: translate(0); }
+}
+
+.shake{
+  animation: shake 0.4s;
+}
+
+body::after{
+  content:"✨ ✨ ✨ ✨ ✨";
+  position:fixed;
+  top:10%;
+  width:100%;
+  text-align:center;
+  opacity:0.3;
+  font-size:30px;
+  animation: sparkle 3s infinite linear;
+}
+
+@keyframes sparkle{
+  0%{ opacity:0.1; }
+  50%{ opacity:0.5; }
+  100%{ opacity:0.1; }
+}
+  
+  .glow{
+  animation: glowEffect 1s infinite alternate;
+}
+
+@keyframes glowEffect{
+  from{
+    box-shadow: 0 0 5px pink;
+  }
+  to{
+    box-shadow: 0 0 20px red;
+  }
+}
+
+#main{
+  display:none;
+  padding:20px;
+  background: rgba(255,255,255,0.1);
+  border-radius:20px;
+  backdrop-filter: blur(10px);
+  box-shadow:0 0 20px rgba(0,0,0,0.4);
+}
+
+.container{
+  position:absolute;
+  top:52%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  width:%;
+  max-width:400px;
+}
+
+</style>
+</head>
+
+<body>
+
+<h2>Enter Password ❤️</h2>
+<input type="password" id="pass">
+<br>
+<button onclick="unlock()">Unlock</button>
+
+<div id="main">
+  <h1 id="typing"></h1>
+  <p>You are my everything ❤️</p>
+  <br>
+<button onclick="showLove()">Click Me 💌</button>
+<p id="msg" style="display:none;">You are my peace, my happiness, my everything 💞</p>
+</div>
+
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mp3">
+</audio>
+
+<div id="popup" style="
+display:none;
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:white;
+color:black;
+padding:20px;
+border-radius:15px;
+text-align:center;
+z-index:1000;
+">
+  <h3>Will You Be Mine? 💍</h3>
+  <button class="glow" onclick="yesLove()">Yes 💖</button>
+
+<button id="noBtn" onmouseover="moveNo()" style="margin-left:10px;">
+No 😜
+</button>
+</div>
+
+<div id="overlay" style="
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.6);
+backdrop-filter:blur(5px);
+z-index:999;
+"></div>
+
+<script>
+var correctPassword = "120904";
+var text = "Urmila 💖";
+var i = 0;
+
+function typeEffect(){
+  if(i < text.length){
+    document.getElementById("typing").innerHTML += text.charAt(i);
+    i++;
+    setTimeout(typeEffect, 100);
+  }
+}
+function unlock(){
+  var p = document.getElementById("pass").value;
+  if(p === correctPassword){
+    document.getElementById("main").style.display="block";
+    document.getElementById("bgMusic").play();typeEffect();
+  }else{
+    alert("Wrong Password");
+  }
+}
+function showLove(){
+  document.getElementById("msg").style.display="block";
+  showPopup();
+}
+setInterval(function(){
+  var heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "❤️";
+  heart.style.left = Math.random() * 100 + "vw";
+  document.body.appendChild(heart);
+
+  setTimeout(function(){
+    heart.remove();
+  },5000);
+},500);
+
+function showPopup(){
+  document.getElementById("overlay").style.display="block";
+  document.getElementById("popup").style.display="block";
+}
+
+function yesLove(){
+document.body.classList.add("shake");
+  setTimeout(function(){
+    document.body.classList.remove("shake");
+  },400);
+
+  document.getElementById("popup").innerHTML =
+  "<h2>She Said YES 💍❤️</h2><br><p>This is just the beginning...</p>";
+
+  launchConfetti();
+}
+
+function closePopup(){
+  document.getElementById("overlay").style.display="none";
+  document.getElementById("popup").style.display="none";
+}
+
+function moveNo(){
+var btn = document.getElementById("noBtn");
+  if(btn){
+    btn.style.position="absolute";
+    btn.style.top=Math.random()*70+"%";
+    btn.style.left=Math.random()*70+"%";
+  }
+}
+  
+  function launchConfetti(){
+  for(var i=0;i<100;i++){
+    var conf = document.createElement("div");
+    conf.className="confetti";
+    conf.style.left=Math.random()*100+"vw";
+    conf.style.backgroundColor=
+      "hsl("+Math.random()*360+",100%,50%)";
+    document.body.appendChild(conf);
+
+    setTimeout(function(){
+      conf.remove();
+    },3000);
+  }
+}
+
+</script>
+
+</body>
+</html>
